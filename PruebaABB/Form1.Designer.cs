@@ -34,6 +34,10 @@
             this.rdbInOrden = new System.Windows.Forms.RadioButton();
             this.rdbPreOrden = new System.Windows.Forms.RadioButton();
             this.Tabla = new System.Windows.Forms.DataGridView();
+            this.TCampo1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCampo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCampo3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCampo9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtCampo3 = new System.Windows.Forms.TextBox();
             this.txtCampo2 = new System.Windows.Forms.TextBox();
@@ -41,6 +45,7 @@
             this.lblC3 = new System.Windows.Forms.Label();
             this.lblC2 = new System.Windows.Forms.Label();
             this.lblC1 = new System.Windows.Forms.Label();
+            this.pcbImagen = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnExam = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
@@ -52,18 +57,15 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.pcbGrafico = new System.Windows.Forms.PictureBox();
-            this.pcbImagen = new System.Windows.Forms.PictureBox();
             this.chbBuscar = new System.Windows.Forms.CheckBox();
-            this.TCampo1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCampo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCampo3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCampo9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnRuta = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tabla)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbImagen)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbGrafico)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbImagen)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -88,6 +90,7 @@
             this.rdbPostOrden.TabStop = true;
             this.rdbPostOrden.Text = "PostOrden";
             this.rdbPostOrden.UseVisualStyleBackColor = true;
+            this.rdbPostOrden.CheckedChanged += new System.EventHandler(this.rdbPostOrden_CheckedChanged_1);
             // 
             // rdbInOrden
             // 
@@ -99,6 +102,7 @@
             this.rdbInOrden.TabStop = true;
             this.rdbInOrden.Text = "InOrden";
             this.rdbInOrden.UseVisualStyleBackColor = true;
+            this.rdbInOrden.CheckedChanged += new System.EventHandler(this.rdbInOrden_CheckedChanged_1);
             // 
             // rdbPreOrden
             // 
@@ -110,6 +114,7 @@
             this.rdbPreOrden.TabStop = true;
             this.rdbPreOrden.Text = "PreOrden";
             this.rdbPreOrden.UseVisualStyleBackColor = true;
+            this.rdbPreOrden.CheckedChanged += new System.EventHandler(this.rdbPreOrden_CheckedChanged_1);
             // 
             // Tabla
             // 
@@ -124,6 +129,31 @@
             this.Tabla.Size = new System.Drawing.Size(609, 136);
             this.Tabla.TabIndex = 11;
             this.Tabla.Click += new System.EventHandler(this.clickdata);
+            // 
+            // TCampo1
+            // 
+            this.TCampo1.HeaderText = "Campo1";
+            this.TCampo1.Name = "TCampo1";
+            this.TCampo1.ReadOnly = true;
+            // 
+            // TCampo2
+            // 
+            this.TCampo2.HeaderText = "Campo2";
+            this.TCampo2.Name = "TCampo2";
+            this.TCampo2.ReadOnly = true;
+            // 
+            // TCampo3
+            // 
+            this.TCampo3.HeaderText = "Campo3";
+            this.TCampo3.Name = "TCampo3";
+            this.TCampo3.ReadOnly = true;
+            // 
+            // TCampo9
+            // 
+            this.TCampo9.HeaderText = "Campo9";
+            this.TCampo9.Name = "TCampo9";
+            this.TCampo9.ReadOnly = true;
+            this.TCampo9.Visible = false;
             // 
             // groupBox2
             // 
@@ -189,6 +219,19 @@
             this.lblC1.TabIndex = 0;
             this.lblC1.Text = "label1";
             // 
+            // pcbImagen
+            // 
+            this.pcbImagen.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pcbImagen.Image = ((System.Drawing.Image)(resources.GetObject("pcbImagen.Image")));
+            this.pcbImagen.InitialImage = ((System.Drawing.Image)(resources.GetObject("pcbImagen.InitialImage")));
+            this.pcbImagen.Location = new System.Drawing.Point(12, 92);
+            this.pcbImagen.Name = "pcbImagen";
+            this.pcbImagen.Size = new System.Drawing.Size(313, 147);
+            this.pcbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pcbImagen.TabIndex = 7;
+            this.pcbImagen.TabStop = false;
+            this.pcbImagen.Click += new System.EventHandler(this.pcbImagen_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnExam);
@@ -209,11 +252,11 @@
             // 
             // btnExam
             // 
-            this.btnExam.Location = new System.Drawing.Point(17, 202);
+            this.btnExam.Location = new System.Drawing.Point(3, 198);
             this.btnExam.Name = "btnExam";
-            this.btnExam.Size = new System.Drawing.Size(75, 23);
+            this.btnExam.Size = new System.Drawing.Size(103, 23);
             this.btnExam.TabIndex = 10;
-            this.btnExam.Text = "obtener cant";
+            this.btnExam.Text = "obtener cantidad";
             this.btnExam.UseVisualStyleBackColor = true;
             this.btnExam.Click += new System.EventHandler(this.btnExam_Click);
             // 
@@ -302,23 +345,10 @@
             this.pcbGrafico.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pcbGrafico.Location = new System.Drawing.Point(410, 12);
             this.pcbGrafico.Name = "pcbGrafico";
-            this.pcbGrafico.Size = new System.Drawing.Size(308, 295);
+            this.pcbGrafico.Size = new System.Drawing.Size(308, 266);
             this.pcbGrafico.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pcbGrafico.TabIndex = 8;
             this.pcbGrafico.TabStop = false;
-            // 
-            // pcbImagen
-            // 
-            this.pcbImagen.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.pcbImagen.Image = ((System.Drawing.Image)(resources.GetObject("pcbImagen.Image")));
-            this.pcbImagen.InitialImage = ((System.Drawing.Image)(resources.GetObject("pcbImagen.InitialImage")));
-            this.pcbImagen.Location = new System.Drawing.Point(12, 92);
-            this.pcbImagen.Name = "pcbImagen";
-            this.pcbImagen.Size = new System.Drawing.Size(313, 147);
-            this.pcbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pcbImagen.TabIndex = 7;
-            this.pcbImagen.TabStop = false;
-            this.pcbImagen.Click += new System.EventHandler(this.pcbImagen_Click);
             // 
             // chbBuscar
             // 
@@ -330,36 +360,32 @@
             this.chbBuscar.Text = "¿Desea buscar pulsando un elemento de la tabla?";
             this.chbBuscar.UseVisualStyleBackColor = true;
             // 
-            // TCampo1
+            // label1
             // 
-            this.TCampo1.HeaderText = "Campo1";
-            this.TCampo1.Name = "TCampo1";
-            this.TCampo1.ReadOnly = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(426, 294);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Ruta de la carpeta";
             // 
-            // TCampo2
+            // btnRuta
             // 
-            this.TCampo2.HeaderText = "Campo2";
-            this.TCampo2.Name = "TCampo2";
-            this.TCampo2.ReadOnly = true;
-            // 
-            // TCampo3
-            // 
-            this.TCampo3.HeaderText = "Campo3";
-            this.TCampo3.Name = "TCampo3";
-            this.TCampo3.ReadOnly = true;
-            // 
-            // TCampo9
-            // 
-            this.TCampo9.HeaderText = "Campo9";
-            this.TCampo9.Name = "TCampo9";
-            this.TCampo9.ReadOnly = true;
-            this.TCampo9.Visible = false;
+            this.btnRuta.Location = new System.Drawing.Point(528, 284);
+            this.btnRuta.Name = "btnRuta";
+            this.btnRuta.Size = new System.Drawing.Size(140, 33);
+            this.btnRuta.TabIndex = 15;
+            this.btnRuta.Text = "Cambiar Ruta";
+            this.btnRuta.UseVisualStyleBackColor = true;
+            this.btnRuta.Click += new System.EventHandler(this.btnRuta_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(857, 476);
+            this.Controls.Add(this.btnRuta);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chbBuscar);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.Tabla);
@@ -374,9 +400,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Tabla)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbImagen)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcbGrafico)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbImagen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -413,6 +439,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TCampo2;
         private System.Windows.Forms.DataGridViewTextBoxColumn TCampo3;
         private System.Windows.Forms.DataGridViewTextBoxColumn TCampo9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnRuta;
     }
 }
 

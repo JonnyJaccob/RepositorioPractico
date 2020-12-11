@@ -8,3 +8,13 @@ C:\Users\jacco\source\repos\PruebaABB\obj\Debug\PruebaABB.csproj.GenerateResourc
 C:\Users\jacco\source\repos\PruebaABB\obj\Debug\PruebaABB.csproj.CoreCompileInputs.cache
 C:\Users\jacco\source\repos\PruebaABB\obj\Debug\PruebaABB.exe
 C:\Users\jacco\source\repos\PruebaABB\obj\Debug\PruebaABB.pdb
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\bin\Debug\PruebaABB.exe.config
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\bin\Debug\PruebaABB.exe
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\bin\Debug\PruebaABB.pdb
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\obj\Debug\PruebaABB.csprojAssemblyReference.cache
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\obj\Debug\PruebaABB.Form1.resources
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\obj\Debug\PruebaABB.Properties.Resources.resources
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\obj\Debug\PruebaABB.csproj.GenerateResource.cache
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\obj\Debug\PruebaABB.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\obj\Debug\PruebaABB.exe
+C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\obj\Debug\PruebaABB.pdb

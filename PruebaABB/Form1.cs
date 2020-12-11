@@ -16,7 +16,7 @@ namespace PruebaABB
         {
             InitializeComponent();
         }
-
+        private string DireccionPath = @"C:\Users\DELL\Downloads\CarpetsJosue\RepositorioPractico-main\PruebaABB\bin\Debug";
         private void Form1_Load(object sender, EventArgs e)
         {
            
@@ -25,13 +25,13 @@ namespace PruebaABB
             campo1 = "Nombre";//string
             campo2 = "Numero de identificacion";//int
             campo3 = "Sueldo al año";//double
-            campo4 = "Inicial del empleado";//char
-            campo5 = "Fecha de ingreso";//DateTime
-            campo6 = "Puesto que elabora";//string
-            campo7 = "¿Tiene seguro?";//checkbox bool
-            campo8 = "Sexo del empleado/a";//cabecera groupbox
-            rdbC1 = "Masculino";//RadioBotton 1
-            rdbC2 = "Femenino";//RadioBotton 2
+            //campo4 = "Inicial del empleado";//char
+            //campo5 = "Fecha de ingreso";//DateTime
+            //campo6 = "Puesto que elabora";//string
+            //campo7 = "¿Tiene seguro?";//checkbox bool
+            //campo8 = "Sexo del empleado/a";//cabecera groupbox
+            //rdbC1 = "Masculino";//RadioBotton 1
+            //rdbC2 = "Femenino";//RadioBotton 2
             {
                 lblC1.Text = campo1;
                 lblC2.Text = campo2;
@@ -44,10 +44,8 @@ namespace PruebaABB
             }
         }
         
-        EmpresaCurtidoraPieles empresa;
-        ClaseVar ind;
         ClaseABB<ClaseVar> arbol = new ClaseABB<ClaseVar>();
-        string PathDireccion = @"C:\Users\jacco\source\repos\PruebaABB\Draw\Perfil.png";
+        string PathDireccion = @"C:\Users\DELL\Downloads\CarpetsJosue\Repositorio\Practico-main\PruebaABB\Draw\Perfil.png";
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -95,7 +93,7 @@ namespace PruebaABB
             pcbImagen.Image = (Image)miImagen;
             pcbImagen.Refresh();
         }
-        string campo1, campo2, campo3, campo4, campo5, campo6, campo7, campo8, rdbC1, rdbC2;
+        string campo1, campo2, campo3;// campo4, campo5, campo6, campo7, campo8, rdbC1, rdbC2;
 
         private void btnDibujar_Click(object sender, EventArgs e)
         {
@@ -325,8 +323,17 @@ namespace PruebaABB
         {
             try
             {
+
                 string x = AgregarTabla("");//obtiene objeto clase b
-                MessageBox.Show(x, "Lista de identificaciones");
+                if(x=="ID:"|| x == "ID: "|| x == "ID:   "|| x == "ID: ")
+                {
+                    MessageBox.Show("La lista esta vacia", "Lista de identificaciones");
+                }
+                else
+                {
+                    MessageBox.Show(x, "Lista de identificaciones");
+                }
+                
             }
             catch (Exception ex)
             {
@@ -358,6 +365,24 @@ namespace PruebaABB
                 default:
                     break;
             }
+        }
+
+        private void btnRuta_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folder = new FolderBrowserDialog();
+            DialogResult result = folder.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                DireccionPath = $"{folder.SelectedPath}";
+                Environment.SpecialFolder root = folder.RootFolder;
+
+            }
+            else
+            {
+                MessageBox.Show("A ocurrido un error inesperado");
+            }
+            MessageBox.Show("Resultado:" + DireccionPath);
+
         }
 
         private void btnExam_Click(object sender, EventArgs e)
@@ -545,7 +570,7 @@ namespace PruebaABB
             
             try        // Intenta abrir el archivo
             {
-                AliasFigura = new System.IO.FileStream("C:\\Users\\jacco\\source\\repos\\PruebaABB\\bin\\Debug\\Figura.jpg",
+                AliasFigura = new System.IO.FileStream(DireccionPath+"\\Figura.jpg",
                System.IO.FileMode.Open, System.IO.FileAccess.Read);
             }
             catch (Exception x)
@@ -567,6 +592,21 @@ namespace PruebaABB
             pcbGrafico.Refresh();
         }
 
+        private void rdbPreOrden_CheckedChanged_1(object sender, EventArgs e)
+        {
+            AgregarTabla("");
+        }
+
+        private void rdbInOrden_CheckedChanged_1(object sender, EventArgs e)
+        {
+            AgregarTabla("");
+        }
+
+        private void rdbPostOrden_CheckedChanged_1(object sender, EventArgs e)
+        {
+            AgregarTabla("");
+        }
+
         private void InvocaDibujar()
         {
             // El archivo por lotes DIBUJAR.bat contiene el siguiente código:
@@ -578,7 +618,7 @@ namespace PruebaABB
             
             try
             {
-                System.Diagnostics.Process.Start("C:\\Users\\jacco\\source\\repos\\PruebaABB\\bin\\Debug\\DIBUJAR.bat");
+                System.Diagnostics.Process.Start(DireccionPath+"\\DIBUJAR.bat");
                 
             }
             catch (Exception)
@@ -598,7 +638,7 @@ namespace PruebaABB
             
             try
             {
-                System.IO.StreamWriter AliasArchivo = new System.IO.StreamWriter(@"C:\\Users\\jacco\\source\\repos\\PruebaABB\\bin\\Debug\\Figura");
+                System.IO.StreamWriter AliasArchivo = new System.IO.StreamWriter(DireccionPath+"\\Figura");
                 AliasArchivo.WriteLine(Resultado);
                 AliasArchivo.Close();
                 return (Resultado);

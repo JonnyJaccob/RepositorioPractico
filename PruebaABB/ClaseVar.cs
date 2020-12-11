@@ -43,7 +43,6 @@ namespace PruebaABB
             get { return _DireccionPath; }
             set { _DireccionPath = value; }
         }
-        private string _intPuesto;
 
         
 
