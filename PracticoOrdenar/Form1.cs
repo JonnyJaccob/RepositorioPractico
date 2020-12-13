@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -164,7 +164,27 @@ namespace PracticaOrdenar
                     }
                 }
         }
+        int CantidadObj = 0;
+        int ObtenerCantObj()
+        {
+            foreach (Bomberos b in lista)
+            {
 
+                CantidadObj++;
+            }
+            return CantidadObj;
+        }
+        void IntroducirContenido()
+        {
+            int c = ObtenerCantObj();
+            Numero = new int[c+1];
+            int iteracion = 0;
+            foreach (Bomberos bomberos in lista)
+            {
+                Numero[iteracion] = bomberos.ID;
+                iteracion++;
+            }
+        }
         void BurbujaDerecha(int[] Arreglo)
         {
             for (int i = Arreglo.Length - 2; i >= 0; i--)
@@ -234,16 +254,15 @@ namespace PracticaOrdenar
                     b.ID = value;
                     b.Sueldo = value / 2;
                     lista.AgregarNodo(b);
-                    AgregarTabla();
+                    AgregarTabla(b);
                 }
-                button1.Enabled = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error {ex}");
             }
         }
-        private void AgregarTabla()
+        private void AgregarTabla(Bomberos bomberos)
         {
             Tabla.Rows.Clear();
             foreach (Bomberos b in lista)
@@ -251,6 +270,7 @@ namespace PracticaOrdenar
                 Tabla.Rows.Add(b.Nombre,b.ID,b.Sueldo);
             }
         }
+
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -264,5 +284,133 @@ namespace PracticaOrdenar
 
             
         }
+        int[] Numero;
+        void AsignarValoresIniciales(ref int primer, ref int ultimo)
+        {
+            for (int i = 0; i < Numero.Length; i++)
+            {
+                if (i == 0)
+                {
+                    primer = Numero[i];
+                }
+                ultimo = Numero[i];
+            }
+        }
+        string ObtenerDatos()
+        {
+            
+            //Numero= new int[cant];
+            int cont = 0;
+            for (int fila = 0; fila < Tabla.Rows.Count - 1; fila++)
+            {
+                for (int col = 0; col < Tabla.Rows[fila].Cells.Count; col++)
+                {
+                    Numero[cont] = int.Parse(Tabla.Rows[fila].Cells[col].Value.ToString());
+                    cont++;
+                }
+            }
+            OrdenamientoRapido(Numero, 1);
+            string g = "";
+            for (int i = 0; i < 1; ++i)
+            {
+                g += ($"{Numero[i]},");
+            }
+            return g;
+        }
+
+        static int cont;
+        private static int OrdenamientoRapido(int[] datos, int numero)
+        {
+            cont = 0;
+            OrdenamientoRapido(datos, 0, numero - 1);
+            return cont;
+        }
+        public static void OrdenamientoRapido(int[] datos, int inf, int sup)
+        {
+            if (sup > inf)
+            {
+                int pivote = datos[sup];
+                int i = inf - 1;
+                int j = sup;
+                do
+                {
+                    while (datos[++i] < pivote) ;
+                    while (datos[--j] > pivote) ;
+                    if (i < j)
+                        swap(datos, i, j);
+                }
+                while (i < j);
+                swap(datos, i, sup);
+                OrdenamientoRapido(datos, inf, i - 1);
+                OrdenamientoRapido(datos, i + 1, sup);
+            }
+        }
+        private void Generar1()
+        {
+            
+            Random ram = new Random();
+            Numero = new int[1];
+            for (int j = 0; j < 1; j++)
+            {
+                for (int i = 0; i < 1; i++)
+                {
+
+                    var Value = ram.Next(0, 20);
+                    Tabla.Rows[j].Cells[i].Value = Value;
+                    Numero[cont] = Value;
+                    cont++;
+                }
+            }
+            try
+            {
+                string g = ObtenerDatos();
+                MessageBox.Show(g, "Numeros ordenados");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+
+        }
+        public static void swap(int[] datos, int i, int j)
+        {
+            int aux = datos[i];
+            datos[i] = datos[j];
+            datos[j] = aux;
+            cont++; // variable global
+        }
+        public void MetodoQuickSort()
+        {
+
+            int c = Numero.Length +1;
+            
+            try
+            {
+                ClaseListaDoble<Bomberos> temporal = new ClaseListaDoble<Bomberos>(true);
+                OrdenamientoRapido(Numero, c);
+                for (int j = 0; j < Numero.Length; j++)
+                {
+                    Bomberos e = new Bomberos();
+                    e.ID = Numero[j];
+                    temporal.AgregarNodo(lista.BuscarNodo(e));
+                }
+                Bomberos b=new Bomberos();
+                AgregarTabla(b);
+                //MessageBox.Show($"Tiempo: {tim.Elapsed.TotalMilliseconds} ms");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+        }
+        
+
+        private void btnQuick_Click(object sender, EventArgs e)
+        {
+            IntroducirContenido();
+            MetodoQuickSort();
+        }
     }
 }
+

@@ -30,6 +30,7 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -39,9 +40,11 @@
             this.com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button7 = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnQuick = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tabla)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -69,6 +72,15 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Botones";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(6, 283);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(125, 40);
+            this.button7.TabIndex = 6;
+            this.button7.Text = "Ordenar descendente por izquierda";
+            this.button7.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -148,20 +160,32 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             // 
-            // button7
+            // groupBox2
             // 
-            this.button7.Location = new System.Drawing.Point(6, 283);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(125, 40);
-            this.button7.TabIndex = 6;
-            this.button7.Text = "Ordenar descendente por izquierda";
-            this.button7.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.btnQuick);
+            this.groupBox2.Location = new System.Drawing.Point(546, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(225, 410);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Botones Prueba";
+            // 
+            // btnQuick
+            // 
+            this.btnQuick.Location = new System.Drawing.Point(6, 19);
+            this.btnQuick.Name = "btnQuick";
+            this.btnQuick.Size = new System.Drawing.Size(92, 43);
+            this.btnQuick.TabIndex = 0;
+            this.btnQuick.Text = "QuickSort";
+            this.btnQuick.UseVisualStyleBackColor = true;
+            this.btnQuick.Click += new System.EventHandler(this.btnQuick_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(553, 450);
+            this.ClientSize = new System.Drawing.Size(799, 450);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.Tabla);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -169,6 +193,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Tabla)).EndInit();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -187,6 +212,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn comm;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnQuick;
     }
 }
 
