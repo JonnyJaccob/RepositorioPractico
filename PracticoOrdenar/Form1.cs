@@ -164,27 +164,7 @@ namespace PracticaOrdenar
                     }
                 }
         }
-        int CantidadObj = 0;
-        int ObtenerCantObj()
-        {
-            foreach (Bomberos b in lista)
-            {
-
-                CantidadObj++;
-            }
-            return CantidadObj;
-        }
-        void IntroducirContenido()
-        {
-            int c = ObtenerCantObj();
-            Numero = new int[c+1];
-            int iteracion = 0;
-            foreach (Bomberos bomberos in lista)
-            {
-                Numero[iteracion] = bomberos.ID;
-                iteracion++;
-            }
-        }
+        
         void BurbujaDerecha(int[] Arreglo)
         {
             for (int i = Arreglo.Length - 2; i >= 0; i--)
@@ -252,10 +232,17 @@ namespace PracticaOrdenar
                     Bomberos b = new Bomberos();
                     b.Nombre = RandomString(5);
                     b.ID = value;
-                    b.Sueldo = value / 2;
+                    double yy = value / 2;
+                    b.Sueldo = yy;
                     lista.AgregarNodo(b);
                     AgregarTabla(b);
                 }
+                Bomberos bb = new Bomberos();
+                bb.Nombre = "jgks";
+                bb.ID = 34;
+                bb.Sueldo = 12.5;
+                lista.AgregarNodo(bb);
+                AgregarTabla(b);
             }
             catch (Exception ex)
             {
@@ -270,11 +257,73 @@ namespace PracticaOrdenar
                 Tabla.Rows.Add(b.Nombre,b.ID,b.Sueldo);
             }
         }
+        private void AgregarTabla(Bomberos bomberos,ClaseListaDoble<Bomberos> temp)
+        {
+            Tabla.Rows.Clear();
+            foreach (Bomberos b in temp)
+            {
+                Tabla.Rows.Add(b.Nombre, b.ID, b.Sueldo);
+            }
+        }
+        private Bomberos Buscando()
+        {
+            DataGridViewRow row = Tabla.CurrentRow;
+            if (row != null)//Para cuando hago click en la tabla
+            {
+                try
+                {
+                    Bomberos empresa = new Bomberos();
+                    empresa.Nombre = Tabla.CurrentRow.Cells[0].Value.ToString();
+                    empresa.ID = int.Parse(Tabla.CurrentRow.Cells[1].Value.ToString());
+                    empresa.Sueldo = int.Parse(Tabla.CurrentRow.Cells[2].Value.ToString());
 
-
+                    return empresa;
+                }
+                catch (NullReferenceException exx)
+                {
+                    throw new Exception("" + exx);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("" + ex);
+                }
+            }
+            if (row == null)
+            {
+                throw new Exception("Seleccione un renglon de la tabla");
+            }
+            throw new Exception("No se encontro");
+        }
         private void button5_Click(object sender, EventArgs e)
         {
-            lista.VaciarLista();
+            try
+            {
+                DialogResult comprobar = MessageBox.Show("¿Desea borrar el dato seleccionado?", "Borrar Datos", MessageBoxButtons.YesNoCancel);
+                switch (comprobar)
+                {
+                    case DialogResult.Yes:
+                        try
+                        {
+                            var x = Buscando();
+                            var y = lista.EliminarNodo(x);
+                            AgregarTabla(b);
+                            MessageBox.Show("Se borro: \n" + y.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex);
+                        }
+                        break;
+                    case DialogResult.No:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
             Arreglo = new int[0];
         }
 
@@ -379,23 +428,117 @@ namespace PracticaOrdenar
             datos[j] = aux;
             cont++; // variable global
         }
+        public void Shell()
+        {
+            int salto = 0;
+            int sw = 0;
+            int auxi = 0;
+            int e = 0;
+            salto = Numero.Length / 2;
+            while (salto > 0)
+            {
+                sw = 1;
+                while (sw != 0)
+                {
+                    sw = 0;
+                    e = 1;
+                    while (e <= (Numero.Length - salto))
+                    {
+                        if (Numero[e - 1] > Numero[(e - 1) + salto])
+                        {
+                            auxi = Numero[(e - 1) + salto];
+                            Numero[(e - 1) + salto] = Numero[e - 1];
+                            Numero[(e - 1)] = auxi;
+                            sw = 1;
+                        }
+                        e++;
+                    }
+                }
+                salto = salto / 2;
+            }
+        }
+        public static void RadixSort(ref int[] data)
+        {
+            int i, j;
+            int[] temp = new int[data.Length];
+
+            for (int shift = 31; shift > -1; --shift)
+            {
+                j = 0;
+
+                for (i = 0; i < data.Length; ++i)
+                {
+                    bool move = (data[i] << shift) >= 0;
+
+                    if (shift == 0 ? !move : move)
+                        data[i - j] = data[i];
+                    else
+                        temp[j++] = data[i];
+                }
+
+                Array.Copy(temp, 0, data, data.Length - j, j);
+            }
+        }
+        public int[] shaker(int[] numeros, int c)
+        {
+            int n = c-1;
+            int izq = 1;
+            int k = n;
+            int aux;
+            int der = n;
+
+            do
+            {
+                for (int i = der; i > izq; i--)
+                {
+                    if (numeros[i - 1] >= numeros[i])
+                    {
+                        aux = numeros[i - 1];
+                        numeros[i - 1] = numeros[i];
+                        numeros[i] = aux;
+                        k = i;
+                    }
+                }
+                izq = k + 1;
+                for (int i = izq; i <= der; i++)
+                {
+                    if (numeros[i - 1] >= numeros[i])
+                    {
+                        aux = numeros[i - 1];
+                        numeros[i - 1] = numeros[i];
+                        numeros[i] = aux;
+                        k = 1;
+                    }
+                }
+                der = k - 1;
+            }
+            while (der >= izq);
+
+            return numeros;
+        }
+
         public void MetodoQuickSort()
         {
-
-            int c = Numero.Length +1;
-            
             try
-            {
+            {   
+                int c = lista.ContarNodos();
+                Numero = new int[c];
+                int i = 0;
+                foreach (Bomberos bomberos in lista)
+                {
+                    Numero[i] = bomberos.ID;
+                    i++;
+                }
                 ClaseListaDoble<Bomberos> temporal = new ClaseListaDoble<Bomberos>(true);
                 OrdenamientoRapido(Numero, c);
-                for (int j = 0; j < Numero.Length; j++)
+                for (int j = 0; j < c; j++)
                 {
                     Bomberos e = new Bomberos();
-                    e.ID = Numero[j];
+                    e.ID = Numero[j];   
                     temporal.AgregarNodo(lista.BuscarNodo(e));
                 }
                 Bomberos b=new Bomberos();
-                AgregarTabla(b);
+                AgregarTabla(b, temporal);
                 //MessageBox.Show($"Tiempo: {tim.Elapsed.TotalMilliseconds} ms");
 
             }
@@ -404,12 +547,204 @@ namespace PracticaOrdenar
                 MessageBox.Show("" + ex);
             }
         }
-        
+        private void MetodoBurbujaIzquierda()
+        {
+            
+            try
+            {   
+                int c = lista.ContarNodos();
+                Numero = new int[c];
+                int i = 0;
+                foreach (Bomberos bomberos in lista)
+                {
+                    Numero[i] = bomberos.ID;
+                    i++;
+                }
+                ClaseListaDoble<Bomberos> temporal = new ClaseListaDoble<Bomberos>(true);
+                BurbujaIzquierda(Numero);
+                for (int j = 0; j < c; j++)
+                {
+                    Bomberos e = new Bomberos();
+                    e.ID = Numero[j];
+                    temporal.AgregarNodo(lista.BuscarNodo(e));
+                }
+                Bomberos b = new Bomberos();
+                AgregarTabla(b, temporal);
+                //MessageBox.Show($"Tiempo: {tim.Elapsed.TotalMilliseconds} ms");
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+        }
+        private void MetodoOrdenamiento(string metodo)
+        {
+            try
+            {
+                int c = lista.ContarNodos();
+                Numero = new int[c];
+                int i = 0;
+                foreach (Bomberos bomberos in lista)
+                {
+                    Numero[i] = bomberos.ID;
+                    i++;
+                }
+                ClaseListaDoble<Bomberos> temporal = new ClaseListaDoble<Bomberos>(true);
+                if(metodo=="QuickSort")
+                {
+                    OrdenamientoRapido(Numero, c);
+                }else if (metodo== "BurIzq")
+                {
+                    BurbujaIzquierda(Numero);
+                }
+                else if (metodo == "BurDer")
+                {
+                    BurbujaDerecha(Numero);
+                }
+                else if (metodo == "BurSeñal")
+                {
+                    BurbujaConSenal(Numero);
+                }
+                else if (metodo == "Shell")
+                {
+                    Shell();
+                }
+                else if (metodo == "Radix")
+                {
+                    RadixSort(ref Numero);
+                }
+                else if (metodo == "Shaker")
+                {
+                    shaker(Numero,c);
+                }
+                else
+                {
+                    throw new Exception("Error en la palabra clave");
+                }
+                
+                for (int j = 0; j < c; j++)
+                {
+                    Bomberos e = new Bomberos();
+                    e.ID = Numero[j];
+                    temporal.AgregarNodo(lista.BuscarNodo(e));
+                }
+                Bomberos b = new Bomberos();
+                AgregarTabla(b, temporal);
+                //MessageBox.Show($"Tiempo: {tim.Elapsed.TotalMilliseconds} ms");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+        }
         private void btnQuick_Click(object sender, EventArgs e)
         {
-            IntroducirContenido();
-            MetodoQuickSort();
+            MetodoOrdenamiento("QuickSort");
+        }
+
+        private void btnBurIzq_Click(object sender, EventArgs e)
+        {
+            MetodoOrdenamiento("BurIzq");
+        }
+
+        private void btnBurDer_Click(object sender, EventArgs e)
+        {
+            MetodoOrdenamiento("BurDer");
+        }
+
+        private void btnVaciar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult comprobar = MessageBox.Show("¿Desea borrar toda la lista?", "Borrar Datos", MessageBoxButtons.YesNoCancel);
+                switch (comprobar)
+                {
+                    case DialogResult.Yes:
+                        try
+                        {
+                            lista.VaciarLista();
+                            AgregarTabla(b);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex);
+                        }
+                        break;
+                    case DialogResult.No:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+        }
+
+        private void btnShell_Click(object sender, EventArgs e)
+        {
+            MetodoOrdenamiento("Shell");
+        }
+
+        private void btnRadix_Click(object sender, EventArgs e)
+        {
+            MetodoOrdenamiento("Radix");
+        }
+
+        private void btnShaker_Click(object sender, EventArgs e)
+        {
+            MetodoOrdenamiento("Shaker");//Observacion
+        }
+        void BurbujaIzquierdaDes(int[] Arreglo)
+        {
+            for (int i = Arreglo.Length - 1; i >= 1; i--)
+                for (int j = i; j <= Arreglo.Length - 1; j++)
+                {
+
+                    if (Arreglo[j] > Arreglo[j - 1])  // Comparación
+                    {
+                        Intercambia(Arreglo, j - 1, j);  // Intercambio de datos
+                        Movimientos++;
+                    }
+                }
+        }
+        public void MetodoExam()
+        {
+            try
+            {
+                int c = lista.ContarNodos();
+                Numero = new int[c];
+                int i = 0;
+                foreach (Bomberos bomberos in lista)
+                {
+                    Numero[i] = bomberos.ID;
+                    i++;
+                }
+                ClaseListaDoble<Bomberos> temporal = new ClaseListaDoble<Bomberos>(true);
+                BurbujaIzquierdaDes(Numero);
+                for (int j = 0; j < c; j++)
+                {
+                    Bomberos e = new Bomberos();
+                    e.ID = Numero[j];
+                    temporal.AgregarNodo(lista.BuscarNodo(e));
+                }
+                Bomberos b = new Bomberos();
+                AgregarTabla(b, temporal);
+                //MessageBox.Show($"Tiempo: {tim.Elapsed.TotalMilliseconds} ms");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+        }
+        private void btnExam_Click(object sender, EventArgs e)
+        {
+            MetodoExam();
+            //OBSERVACION
         }
     }
 }

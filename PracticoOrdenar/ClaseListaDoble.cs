@@ -32,6 +32,25 @@ namespace PracticaOrdenar
             get { return _NodoFinal; }
             set { _NodoFinal = value; }
         }
+        public int ContarNodos()
+        {
+            int c = 0;
+            if (vacio)
+            {
+                return 0;
+            }
+            else
+            {
+                ClaseNodo<Tipo> nodoActual = new ClaseNodo<Tipo>();
+                nodoActual = NodoInicial;
+                while (nodoActual != null)
+                {
+                    nodoActual = nodoActual.Siguiente;
+                    c++;
+                }
+                return c;
+            }
+        }
         bool vacio 
         { 
             get
