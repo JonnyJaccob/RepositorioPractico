@@ -15,6 +15,7 @@ namespace PracticaOrdenar
     {
         public ClaseListaDoble<Bomberos> lista = new ClaseListaDoble<Bomberos>(true);
         public Bomberos b = new Bomberos();
+        public Bomberos[] miArregloBomberos;
         public Form1()
         {
             InitializeComponent();
@@ -371,7 +372,7 @@ namespace PracticaOrdenar
         private static int OrdenamientoRapido(int[] datos, int numero)
         {
             cont = 0;
-            OrdenamientoRapido(datos, 0, numero - 1);
+            OrdenamientoRapido(datos, 0, numero );
             return cont;
         }
         public static void OrdenamientoRapido(int[] datos, int inf, int sup)
@@ -479,9 +480,9 @@ namespace PracticaOrdenar
                 Array.Copy(temp, 0, data, data.Length - j, j);
             }
         }
-        public int[] shaker(int[] numeros, int c)
+        public void shaker(int[] numeros, int c)
         {
-            int n = c-1;
+            int n = c;
             int izq = 1;
             int k = n;
             int aux;
@@ -489,9 +490,9 @@ namespace PracticaOrdenar
 
             do
             {
-                for (int i = der; i > izq; i--)
+                for (int i = der; i >= izq; i--)
                 {
-                    if (numeros[i - 1] >= numeros[i])
+                    if (numeros[i - 1] > numeros[i])
                     {
                         aux = numeros[i - 1];
                         numeros[i - 1] = numeros[i];
@@ -502,7 +503,7 @@ namespace PracticaOrdenar
                 izq = k + 1;
                 for (int i = izq; i <= der; i++)
                 {
-                    if (numeros[i - 1] >= numeros[i])
+                    if (numeros[i - 1] > numeros[i])
                     {
                         aux = numeros[i - 1];
                         numeros[i - 1] = numeros[i];
@@ -513,8 +514,6 @@ namespace PracticaOrdenar
                 der = k - 1;
             }
             while (der >= izq);
-
-            return numeros;
         }
 
         public void MetodoQuickSort()
@@ -530,7 +529,7 @@ namespace PracticaOrdenar
                     i++;
                 }
                 ClaseListaDoble<Bomberos> temporal = new ClaseListaDoble<Bomberos>(true);
-                OrdenamientoRapido(Numero, c);
+                OrdenamientoRapido(Numero, c-1);
                 for (int j = 0; j < c; j++)
                 {
                     Bomberos e = new Bomberos();
@@ -591,10 +590,10 @@ namespace PracticaOrdenar
                     i++;
                 }
                 ClaseListaDoble<Bomberos> temporal = new ClaseListaDoble<Bomberos>(true);
-                if(metodo=="QuickSort")
+                if (metodo == "QuickSort")
                 {
                     OrdenamientoRapido(Numero, c);
-                }else if (metodo== "BurIzq")
+                } else if (metodo == "BurIzq")
                 {
                     BurbujaIzquierda(Numero);
                 }
@@ -616,7 +615,7 @@ namespace PracticaOrdenar
                 }
                 else if (metodo == "Shaker")
                 {
-                    shaker(Numero,c);
+                    OrdenarShellSort<Bomberos>(ref miArregloBomberos);
                 }
                 else
                 {
@@ -641,7 +640,7 @@ namespace PracticaOrdenar
         }
         private void btnQuick_Click(object sender, EventArgs e)
         {
-            MetodoOrdenamiento("QuickSort");
+            MetodoQuickSort();
         }
 
         private void btnBurIzq_Click(object sender, EventArgs e)
@@ -696,17 +695,28 @@ namespace PracticaOrdenar
 
         private void btnShaker_Click(object sender, EventArgs e)
         {
-            MetodoOrdenamiento("Shaker");//Observacion
+            miArregloBomberos = new Bomberos[lista.ContarNodos()];
+            for (int i = 0; i < miArregloBomberos.Length; i++)
+            {
+                Bomberos r = new Bomberos();
+                r.Nombre = Tabla.CurrentRow.Cells[0].Value.ToString();
+                r.ID = int.Parse(Tabla.CurrentRow.Cells[1].Value.ToString());
+                r.Sueldo = double.Parse(Tabla.CurrentRow.Cells[2].Value.ToString());
+
+                miArregloBomberos[i] = r;
+
+            }
+            MetodoOrdenamiento("Shaker");
         }
-        void BurbujaIzquierdaDes(int[] Arreglo)
+        void BurbujaIzquierdaDes(int[] Arreglo,int c)
         {
-            for (int i = Arreglo.Length - 1; i >= 1; i--)
+            for (int i = c ; i >= 1; i--)
                 for (int j = i; j <= Arreglo.Length - 1; j++)
                 {
 
-                    if (Arreglo[j] > Arreglo[j - 1])  // Comparación
+                    if (Arreglo[j] > Arreglo[j + 1])  // Comparación
                     {
-                        Intercambia(Arreglo, j - 1, j);  // Intercambio de datos
+                        Intercambia(Arreglo, j + 1, j);  // Intercambio de datos
                         Movimientos++;
                     }
                 }
@@ -724,7 +734,7 @@ namespace PracticaOrdenar
                     i++;
                 }
                 ClaseListaDoble<Bomberos> temporal = new ClaseListaDoble<Bomberos>(true);
-                BurbujaIzquierdaDes(Numero);
+                ordenamientoBurbujaDescendente(ref Numero);
                 for (int j = 0; j < c; j++)
                 {
                     Bomberos e = new Bomberos();
@@ -745,6 +755,63 @@ namespace PracticaOrdenar
         {
             MetodoExam();
             //OBSERVACION
+        }
+        public void OrdenarShellSort<Tipo>(ref Tipo[] arreglo) where Tipo : IComparable<Tipo>
+        {
+            int salto = arreglo.Length / 2;
+            while (salto > 0)
+            {
+                bool bandera = true;
+                while (bandera == true)
+                {
+                    bandera = false;
+                    int posicion = 0;
+                    while (posicion < (arreglo.Length - salto))
+                    {
+                        if (arreglo[posicion].CompareTo(arreglo[posicion + salto]) == 1)
+                        {
+                            Intercambiar(ref arreglo, posicion, posicion + salto);
+                            bandera = true;
+                        }
+                        posicion++;
+                    }
+
+                }
+                salto = salto / 2;
+            }
+        }
+        void Intercambiar<Tipo>(ref Tipo[] arreglo, int intA, int intB)
+        {
+            Tipo aux;
+            aux = arreglo[intA];
+            arreglo[intA] = arreglo[intB];
+            arreglo[intB] = aux;
+        }
+        public static void ordenamientoBurbujaDescendente(ref int[] numero)
+        {
+            
+            int temp = 0;
+
+            for (int index = 0; index < numero.Length- 1; index++)
+            {
+
+
+                for (int compare = 0; compare < numero.Length - 1; compare++)
+                {
+
+
+                    if (numero[compare] < numero[compare + 1])
+                    {
+
+                        temp = numero[compare];
+                        numero[compare] = numero[compare + 1];
+                        numero[compare + 1] = temp;
+
+                    }
+
+                }
+            }
+
         }
     }
 }
